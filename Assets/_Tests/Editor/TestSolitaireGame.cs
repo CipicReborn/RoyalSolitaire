@@ -22,12 +22,9 @@ namespace TestsSolitaireGame
         [Test]
         public void TestDealNewGame() {
 
-            mDealer.DealNewGame(7);
+            var sevenColumns = 7;
 
-            var deckType = typeof(Deck);
-
-            Assert.IsInstanceOf(deckType, mTable.CardsStack);
-            Assert.IsInstanceOf(deckType, mTable.DiscardsStack);
+            mDealer.DealNewGame(sevenColumns);
 
             Assert.AreEqual(24, mTable.StockPile.CardsCount);
             Assert.AreEqual(0, mTable.WastePile.CardsCount);
@@ -35,7 +32,6 @@ namespace TestsSolitaireGame
             for (int i = 1; i < 8; i++)
             {
                 var column = mTable.GetColumn(i);
-                Assert.IsInstanceOf(deckType, column, "The column " + i + " should be a deck");
                 Assert.AreEqual(i, column.CardsCount, "The column " + i + " should have " + i + "cards");
                 Assert.AreEqual(eCardSide.Front, column.ReadCard(1).VisibleSide, "The top card of the column should be visible");
                 for (int j = 2; j < i; j++)
@@ -48,11 +44,8 @@ namespace TestsSolitaireGame
         [Test]
         public void TestDrawCard()
         {
-            var testDeck = new Deck();
-            testDeck.Stack(new Card(eCardValue.Ace, eCardColor.Clubs, eCardSide.Back));
-            testDeck.Stack(new Card(eCardValue.Two, eCardColor.Clubs, eCardSide.Back));
-            var topCard = new Card(eCardValue.Three, eCardColor.Clubs, eCardSide.Back);
-            testDeck.Stack(topCard);
+            Card topCard;
+            var testDeck = Get3CardsDeck(out topCard);
 
             mTable.StockPile = testDeck;
             mTable.WastePile = new Deck();
@@ -64,6 +57,17 @@ namespace TestsSolitaireGame
             Assert.AreSame(topCard, mTable.WastePile.ReadCard(1));
         }
 
+        private Deck Get3CardsDeck (out Card topCard)
+        {
+            var deck = new Deck();
+            deck.Stack(new Card(eCardValue.Ace, eCardColor.Clubs, eCardSide.Back));
+            deck.Stack(new Card(eCardValue.Two, eCardColor.Clubs, eCardSide.Back));
+            topCard = new Card(eCardValue.Three, eCardColor.Clubs, eCardSide.Back);
+            deck.Stack(topCard);
+            return deck;
+        }
+
+        
         [Test]
         public void TestDrawLastCard()
         {

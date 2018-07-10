@@ -10,18 +10,18 @@ namespace Cards
 
         #region PUBLIC STATIC
 
-        public static Deck GetNew(eDeckType deckType)
+        public static Deck GetNew52CardsPack()
         {
-            switch (deckType)
-            {
-                case eDeckType.FiftyTwo:
-                    return GetNew52Cards();
-                case eDeckType.ThirtyTwo:
-                    return GetNew32Cards();
-                default:
-                    return null;
-            }
-            
+            var colors = EnumUtils.GetValues<eCardColor>();
+            var values = EnumUtils.GetValues<eCardValue>();
+            return GetNewDeck(colors, values);
+        }
+
+        public static Deck GetNew32CardsPack()
+        {
+            var colors = EnumUtils.GetValues<eCardColor>();
+            var values = new eCardValue[8] { eCardValue.Ace, eCardValue.Seven, eCardValue.Eight, eCardValue.Nine, eCardValue.Ten, eCardValue.Jack, eCardValue.Queen, eCardValue.King };
+            return GetNewDeck(colors, values);
         }
 
         #endregion
@@ -93,19 +93,7 @@ namespace Cards
 
         #region PRIVATE
 
-        private static Deck GetNew52Cards()
-        {
-            var colors = EnumUtils.GetValues<eCardColor>();
-            var values = EnumUtils.GetValues<eCardValue>();
-            return GetNewDeck(colors, values);
-        }
 
-        private static Deck GetNew32Cards()
-        {
-            var colors = EnumUtils.GetValues<eCardColor>();
-            var values = new eCardValue[8] { eCardValue.Ace, eCardValue.Seven, eCardValue.Eight, eCardValue.Nine, eCardValue.Ten, eCardValue.Jack, eCardValue.Queen, eCardValue.King };
-            return GetNewDeck(colors, values);
-        }
 
         private static Deck GetNewDeck(eCardColor[] colors, eCardValue[] values)
         {

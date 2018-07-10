@@ -25,7 +25,7 @@ namespace TestCards
         [Test]
         public void WhatIsA_52CardsDeck()
         {
-            var deck = Deck.GetNew(eDeckType.FiftyTwo);
+            var deck = Deck.GetNew52CardsPack();
 
             var aceOfSpades = deck.ReadCard(1);
             var sevenOfDiamonds = deck.ReadCard(20);
@@ -51,7 +51,7 @@ namespace TestCards
         [Test]
         public void WhatIsA_32CardsDeck()
         {
-            var deck = Deck.GetNew(eDeckType.ThirtyTwo);
+            var deck = Deck.GetNew32CardsPack();
 
             var aceOfSpades = deck.ReadCard(1);
             var tenOfDiamonds = deck.ReadCard(13);
@@ -78,7 +78,7 @@ namespace TestCards
         public void ADeckCanBeShuffled()
         {
 
-            var deck = Deck.GetNew(eDeckType.FiftyTwo);
+            var deck = Deck.GetNew52CardsPack();
             deck.Shuffle();
             var randomCard = deck.ReadCard(1);
             Debug.Log("First Card is now a " + randomCard);
@@ -91,7 +91,7 @@ namespace TestCards
         public void AShuffledDeckIsFullBackface()
         {
 
-            var deck = Deck.GetNew(eDeckType.FiftyTwo);
+            var deck = Deck.GetNew52CardsPack();
             deck.Shuffle();
             
             for (int i = 1; i < 53; i++)
@@ -135,8 +135,8 @@ namespace TestCards
         [Test]
         public void ADeckCanBePutUpsideDown()
         {
-            var deck1 = Deck.GetNew(eDeckType.ThirtyTwo);
-            var deck2 = Deck.GetNew(eDeckType.ThirtyTwo);
+            var deck1 = Deck.GetNew32CardsPack();
+            var deck2 = Deck.GetNew32CardsPack();
 
             deck2.PutUpsideDown();
             Assert.AreEqual(32, deck2.CardsCount);

@@ -47,7 +47,7 @@ namespace SolitaireGame
 
         private void DealNewDeck()
         {
-            var newDeck = Deck.GetNew(eDeckType.FiftyTwo);
+            var newDeck = Deck.GetNew52CardsPack();
             newDeck.Shuffle();
             mTable.StockPile = newDeck;
         }

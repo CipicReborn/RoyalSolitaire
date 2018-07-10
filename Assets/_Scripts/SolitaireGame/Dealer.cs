@@ -28,12 +28,12 @@ namespace SolitaireGame
 
         public Card DrawCard()
         {
-            if (mTable.CardsStack.CardsCount == 0)
+            if (mTable.StockPile.CardsCount == 0)
             {
                 MoveDiscardedToPool();
             }
 
-            var card = MoveTopToTop(mTable.CardsStack, mTable.DiscardsStack);
+            var card = MoveTopToTop(mTable.StockPile, mTable.WastePile);
             card.PutFrontfaceVisible();
             return card;
         }
@@ -49,12 +49,12 @@ namespace SolitaireGame
         {
             var newDeck = Deck.GetNew(eDeckType.FiftyTwo);
             newDeck.Shuffle();
-            mTable.CardsStack = newDeck;
+            mTable.StockPile = newDeck;
         }
 
         private void SetDiscardPile()
         {
-            mTable.DiscardsStack = new Deck();
+            mTable.WastePile = new Deck();
         }
 
 
@@ -70,7 +70,7 @@ namespace SolitaireGame
             {
                 for (int i = startColumn; i < columnsCount; i++)
                 {
-                    var card = MoveTopToTop(mTable.CardsStack, columns[i]);
+                    var card = MoveTopToTop(mTable.StockPile, columns[i]);
                     if (i == startColumn)
                     {   
                         card.PutFrontfaceVisible();
@@ -89,11 +89,11 @@ namespace SolitaireGame
 
         private void MoveDiscardedToPool()
         {
-            while(mTable.DiscardsStack.CardsCount > 0)
+            while(mTable.WastePile.CardsCount > 0)
             {
-                mTable.DiscardsStack.PutUpsideDown();
-                mTable.CardsStack = mTable.DiscardsStack;
-                mTable.DiscardsStack = new Deck();
+                mTable.WastePile.PutUpsideDown();
+                mTable.StockPile = mTable.WastePile;
+                mTable.WastePile = new Deck();
             }
         }
         #endregion

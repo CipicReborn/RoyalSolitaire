@@ -29,8 +29,8 @@ namespace TestsSolitaireGame
             Assert.IsInstanceOf(deckType, mTable.CardsStack);
             Assert.IsInstanceOf(deckType, mTable.DiscardsStack);
 
-            Assert.AreEqual(24, mTable.CardsStack.CardsCount);
-            Assert.AreEqual(0, mTable.DiscardsStack.CardsCount);
+            Assert.AreEqual(24, mTable.StockPile.CardsCount);
+            Assert.AreEqual(0, mTable.WastePile.CardsCount);
 
             for (int i = 1; i < 8; i++)
             {
@@ -54,17 +54,14 @@ namespace TestsSolitaireGame
             var topCard = new Card(eCardValue.Three, eCardColor.Clubs, eCardSide.Back);
             testDeck.Stack(topCard);
 
-            var table = new CardsTable()
-            {
-                CardsStack = testDeck,
-                DiscardsStack = new Deck()
-            };
-            mDealer.Table = table;
+            mTable.StockPile = testDeck;
+            mTable.WastePile = new Deck();
 
-            var card = mDealer.DrawCard();
-            Assert.AreEqual(2, table.CardsStack.CardsCount);
-            Assert.AreEqual(1, table.DiscardsStack.CardsCount);
-            Assert.AreSame(topCard, table.DiscardsStack.ReadCard(1));
+            mDealer.DrawCard();
+
+            Assert.AreEqual(2, mTable.StockPile.CardsCount);
+            Assert.AreEqual(1, mTable.WastePile.CardsCount);
+            Assert.AreSame(topCard, mTable.WastePile.ReadCard(1));
         }
 
         [Test]
@@ -76,22 +73,22 @@ namespace TestsSolitaireGame
             twoCardsDeckFrontface.Stack(new Card(eCardValue.Two, eCardColor.Clubs, eCardSide.Front));
             twoCardsDeckFrontface.Stack(new Card(eCardValue.Three, eCardColor.Clubs, eCardSide.Front));
 
-            var table = new CardsTable()
-            {
-                CardsStack = oneCardDeckBackFace,
-                DiscardsStack = twoCardsDeckFrontface
-            };
-            mDealer.Table = table;
+            mTable.StockPile = oneCardDeckBackFace;
+            mTable.WastePile = twoCardsDeckFrontface;
 
             mDealer.DrawCard();
-            Assert.AreEqual(0, table.CardsStack.CardsCount);
-            Assert.AreEqual(3, table.DiscardsStack.CardsCount);
-            var card = mDealer.DrawCard();
-            Assert.AreEqual(2, table.CardsStack.CardsCount);
-            Assert.AreEqual(1, table.DiscardsStack.CardsCount);
 
-            var topCardAfterDraw1 = table.CardsStack.ReadCard(1);
-            var topCardAfterDraw2 = table.DiscardsStack.ReadCard(1);
+            Assert.AreEqual(0, mTable.StockPile.CardsCount);
+            Assert.AreEqual(3, mTable.WastePile.CardsCount);
+
+            mDealer.DrawCard();
+
+            Assert.AreEqual(2, mTable.StockPile.CardsCount);
+            Assert.AreEqual(1, mTable.WastePile.CardsCount);
+
+            var topCardAfterDraw1 = mTable.StockPile.ReadCard(1);
+            var topCardAfterDraw2 = mTable.WastePile.ReadCard(1);
+
             Assert.AreEqual(eCardValue.Three, topCardAfterDraw1.Value);
             Assert.AreEqual(eCardSide.Back, topCardAfterDraw1.VisibleSide);
             Assert.AreEqual(eCardValue.Two, topCardAfterDraw2.Value);

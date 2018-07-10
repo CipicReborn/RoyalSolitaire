@@ -45,7 +45,7 @@ public class Main : MonoBehaviour {
     public void Layout()
     {
 
-        StackAt(mTable.CardsStack, new Vector3(-0.35f, 0.04f, -0.1f), 0.04f);
+        StackAt(mTable.StockPile, new Vector3(-0.35f, 0.04f, -0.1f), 0.04f);
 
         for (int col = 1; col < 8; col++)
         {

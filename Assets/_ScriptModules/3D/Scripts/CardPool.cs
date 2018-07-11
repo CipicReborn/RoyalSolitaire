@@ -7,9 +7,9 @@ public class CardPool : MonoBehaviour {
 
     public Transform TargetContainer;
     public GameObject CardPrefab;
+    private Dictionary<eCardColor, Dictionary<eCardValue, GameObject>> mCards;
 
     private const string mPrefix = "PlayingCards_";
-    private Dictionary<eCardColor, Dictionary<eCardValue, GameObject>> mCards;
 
     private Dictionary<eCardColor, string> colorNames = new Dictionary<eCardColor, string>()
     {

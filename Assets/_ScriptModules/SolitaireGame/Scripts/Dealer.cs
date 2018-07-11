@@ -47,23 +47,23 @@ namespace SolitaireGame
 
         private void DealNewDeck()
         {
-            var newDeck = Deck.GetNew52CardsPack();
-            newDeck.Shuffle();
-            mTable.StockPile = newDeck;
+            var pile = CardsPack.GetNew52CardsPack();
+            pile.Shuffle();
+            mTable.StockPile = pile;
         }
 
         private void SetDiscardPile()
         {
-            mTable.WastePile = new Deck();
+            mTable.WastePile = new Pile();
         }
 
 
         private void DealColumns(int columnsCount)
         {
-            var columns = new List<Deck>();
+            var columns = new List<Pile>();
             for (int i = 0; i < columnsCount; i++)
             {
-                columns.Add(new Deck());
+                columns.Add(new Pile());
             }
 
             for (int startColumn = 0; startColumn < columnsCount; startColumn++)
@@ -80,7 +80,7 @@ namespace SolitaireGame
             mTable.SetColumns(columns);
         }
 
-        private Card MoveTopToTop(Deck originDeck, Deck destinationDeck)
+        private Card MoveTopToTop(Pile originDeck, Pile destinationDeck)
         {
             var card = originDeck.Unstack();
             destinationDeck.Stack(card);
@@ -93,7 +93,7 @@ namespace SolitaireGame
             {
                 mTable.WastePile.PutUpsideDown();
                 mTable.StockPile = mTable.WastePile;
-                mTable.WastePile = new Deck();
+                mTable.WastePile = new Pile();
             }
         }
         #endregion

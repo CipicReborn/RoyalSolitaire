@@ -1,31 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Utils;
 
 namespace Cards
 {
-    public class Deck
+    public class Pile
     {
-
-        #region PUBLIC STATIC
-
-        public static Deck GetNew52CardsPack()
-        {
-            var colors = EnumUtils.GetValues<eCardColor>();
-            var values = EnumUtils.GetValues<eCardValue>();
-            return GetNewDeck(colors, values);
-        }
-
-        public static Deck GetNew32CardsPack()
-        {
-            var colors = EnumUtils.GetValues<eCardColor>();
-            var values = new eCardValue[8] { eCardValue.Ace, eCardValue.Seven, eCardValue.Eight, eCardValue.Nine, eCardValue.Ten, eCardValue.Jack, eCardValue.Queen, eCardValue.King };
-            return GetNewDeck(colors, values);
-        }
-
-        #endregion
-
 
         #region PUBLIC
 
@@ -93,26 +73,8 @@ namespace Cards
 
         #region PRIVATE
 
-
-
-        private static Deck GetNewDeck(eCardColor[] colors, eCardValue[] values)
-        {
-            var deck = new Deck();
-
-            for (int i = 0; i < colors.Length; i++)
-            {
-                for (int j = 0; j < values.Length; j++)
-                {
-                    var value = values[j];
-                    var color = colors[i];
-                    deck.Add(new Card(value, color));
-                }
-            }
-
-            return deck;
-        }
-
         private List<Card> mStack = new List<Card>();
+
         #endregion
     }
 }

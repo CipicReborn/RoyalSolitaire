@@ -55,7 +55,7 @@ public class Main : MonoBehaviour {
         }
     }
 
-    private void StackAt (Deck deck, Vector3 position, float yOffset, float zOffset = 0)
+    private void StackAt (Pile deck, Vector3 position, float yOffset, float zOffset = 0)
     {
         for (int i = 0; i < deck.CardsCount; i++)
         {

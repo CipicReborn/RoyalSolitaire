@@ -5,18 +5,18 @@ namespace SolitaireGame
 {
     public class CardsTable
     {
-        public Deck StockPile;
-        public Deck WastePile;
-        private List<Deck> mTableau = new List<Deck>();
+        public Pile StockPile;
+        public Pile WastePile;
+        private List<Pile> mTableau = new List<Pile>();
         //private List<Deck> mFoundations = new List<Deck>();
         
 
-        public Deck GetColumn(int index)
+        public Pile GetColumn(int index)
         {
             return mTableau[index - 1];
         }
 
-        public void SetColumns(List<Deck> columns)
+        public void SetColumns(List<Pile> columns)
         {
             mTableau = columns;
         }

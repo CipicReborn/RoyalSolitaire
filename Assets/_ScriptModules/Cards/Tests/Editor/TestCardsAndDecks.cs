@@ -25,14 +25,14 @@ namespace TestCards
         [Test]
         public void WhatIsA_52CardsDeck()
         {
-            var deck = Deck.GetNew52CardsPack();
+            var pile = CardsPack.GetNew52CardsPack();
 
-            var aceOfSpades = deck.ReadCard(1);
-            var sevenOfDiamonds = deck.ReadCard(20);
-            var queenOfHearts = deck.ReadCard(38);
-            var kingOfClubs = deck.ReadCard(52);
+            var aceOfSpades = pile.ReadCard(1);
+            var sevenOfDiamonds = pile.ReadCard(20);
+            var queenOfHearts = pile.ReadCard(38);
+            var kingOfClubs = pile.ReadCard(52);
 
-            Assert.AreEqual(52, deck.CardsCount);
+            Assert.AreEqual(52, pile.CardsCount);
 
             Assert.AreEqual(eCardValue.Ace, aceOfSpades.Value, "The 1st card should be an Ace of Spades");
             Assert.AreEqual(eCardColor.Spades, aceOfSpades.Color, "The 1st card should be an Ace of Spades");
@@ -51,14 +51,14 @@ namespace TestCards
         [Test]
         public void WhatIsA_32CardsDeck()
         {
-            var deck = Deck.GetNew32CardsPack();
+            var pile = CardsPack.GetNew32CardsPack();
 
-            var aceOfSpades = deck.ReadCard(1);
-            var tenOfDiamonds = deck.ReadCard(13);
-            var queenOfHearts = deck.ReadCard(23);
-            var kingOfClubs = deck.ReadCard(32);
+            var aceOfSpades = pile.ReadCard(1);
+            var tenOfDiamonds = pile.ReadCard(13);
+            var queenOfHearts = pile.ReadCard(23);
+            var kingOfClubs = pile.ReadCard(32);
 
-            Assert.AreEqual(32, deck.CardsCount);
+            Assert.AreEqual(32, pile.CardsCount);
 
             Assert.AreEqual(eCardValue.Ace, aceOfSpades.Value, "The 1st card should be an Ace of Spades");
             Assert.AreEqual(eCardColor.Spades, aceOfSpades.Color, "The 1st card should be an Ace of Spades");
@@ -75,76 +75,76 @@ namespace TestCards
         }
 
         [Test]
-        public void ADeckCanBeShuffled()
+        public void APileCanBeShuffled()
         {
 
-            var deck = Deck.GetNew52CardsPack();
-            deck.Shuffle();
-            var randomCard = deck.ReadCard(1);
+            var pile = CardsPack.GetNew52CardsPack();
+            pile.Shuffle();
+            var randomCard = pile.ReadCard(1);
             Debug.Log("First Card is now a " + randomCard);
 
-            Assert.AreEqual(52, deck.CardsCount, "A deck shuffle should not change the cards count");
+            Assert.AreEqual(52, pile.CardsCount, "A deck shuffle should not change the cards count");
             Assert.AreEqual(eCardSide.Back, randomCard.VisibleSide, "After shuffle, the cards should be Backface on top");
         }
 
         [Test]
-        public void AShuffledDeckIsFullBackface()
+        public void AShuffledPileIsFullBackface()
         {
 
-            var deck = Deck.GetNew52CardsPack();
-            deck.Shuffle();
+            var pile = CardsPack.GetNew52CardsPack();
+            pile.Shuffle();
             
             for (int i = 1; i < 53; i++)
             {
-                Assert.AreEqual(52, deck.CardsCount);
-                Assert.AreEqual(eCardSide.Back, deck.ReadCard(i).VisibleSide, "After shuffle, all cards should be Backface on top");
+                Assert.AreEqual(52, pile.CardsCount);
+                Assert.AreEqual(eCardSide.Back, pile.ReadCard(i).VisibleSide, "After shuffle, all cards should be Backface on top");
             }
         }
 
         [Test]
-        public void ACardCanBeStackedOnADeck()
+        public void ACardCanBeStackedOnAPile()
         {
-            var deck = new Deck();
-            deck.Stack(new Card(eCardValue.Ace, eCardColor.Clubs, eCardSide.Back));
-            deck.Stack(new Card(eCardValue.Two, eCardColor.Clubs, eCardSide.Front));
+            var pile = new Pile();
+            pile.Stack(new Card(eCardValue.Ace, eCardColor.Clubs, eCardSide.Back));
+            pile.Stack(new Card(eCardValue.Two, eCardColor.Clubs, eCardSide.Front));
 
-            Assert.AreEqual(2, deck.CardsCount);
-            Assert.AreEqual(eCardValue.Two, deck.ReadCard(1).Value);
-            Assert.AreEqual(eCardValue.Ace, deck.ReadCard(2).Value);
+            Assert.AreEqual(2, pile.CardsCount);
+            Assert.AreEqual(eCardValue.Two, pile.ReadCard(1).Value);
+            Assert.AreEqual(eCardValue.Ace, pile.ReadCard(2).Value);
         }
 
         [Test]
-        public void ACardCanBeUnstackedFromADeck()
+        public void ACardCanBeUnstackedFromAPile()
         {
-            var deck = new Deck();
-            deck.Stack(new Card(eCardValue.Ace, eCardColor.Clubs, eCardSide.Back));
-            deck.Stack(new Card(eCardValue.Two, eCardColor.Clubs, eCardSide.Front));
-            deck.Stack(new Card(eCardValue.Queen, eCardColor.Hearts, eCardSide.Front));
+            var pile = new Pile();
+            pile.Stack(new Card(eCardValue.Ace, eCardColor.Clubs, eCardSide.Back));
+            pile.Stack(new Card(eCardValue.Two, eCardColor.Clubs, eCardSide.Front));
+            pile.Stack(new Card(eCardValue.Queen, eCardColor.Hearts, eCardSide.Front));
 
-            Assert.AreEqual(3, deck.CardsCount);
+            Assert.AreEqual(3, pile.CardsCount);
 
-            var topCard = deck.Unstack();
+            var topCard = pile.Unstack();
 
-            Assert.AreEqual(2, deck.CardsCount);
+            Assert.AreEqual(2, pile.CardsCount);
             Assert.AreEqual(eCardValue.Queen, topCard.Value);
             Assert.AreEqual(eCardColor.Hearts, topCard.Color);
-            Assert.AreEqual(eCardValue.Two, deck.ReadCard(1).Value);
-            Assert.AreEqual(eCardColor.Clubs, deck.ReadCard(1).Color);
+            Assert.AreEqual(eCardValue.Two, pile.ReadCard(1).Value);
+            Assert.AreEqual(eCardColor.Clubs, pile.ReadCard(1).Color);
         }
 
         [Test]
-        public void ADeckCanBePutUpsideDown()
+        public void APileCanBePutUpsideDown()
         {
-            var deck1 = Deck.GetNew32CardsPack();
-            var deck2 = Deck.GetNew32CardsPack();
+            var pile1 = CardsPack.GetNew32CardsPack();
+            var pile2 = CardsPack.GetNew32CardsPack();
 
-            deck2.PutUpsideDown();
-            Assert.AreEqual(32, deck2.CardsCount);
+            pile2.PutUpsideDown();
+            Assert.AreEqual(32, pile2.CardsCount);
 
             for (int i = 1; i < 33; i++)
             {
-                var c1 = deck1.ReadCard(i);
-                var c2 = deck2.ReadCard(33 - i);
+                var c1 = pile1.ReadCard(i);
+                var c2 = pile2.ReadCard(33 - i);
                 Assert.AreEqual(c1.Value, c2.Value);
                 Assert.AreEqual(c1.Color, c2.Color);
                 Assert.AreNotEqual(c1.VisibleSide, c2.VisibleSide);

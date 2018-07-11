@@ -48,7 +48,7 @@ namespace TestsSolitaireGame
             var testDeck = Get3CardsDeck(out topCard);
 
             mTable.StockPile = testDeck;
-            mTable.WastePile = new Deck();
+            mTable.WastePile = new Pile();
 
             mDealer.DrawCard();
 
@@ -57,9 +57,9 @@ namespace TestsSolitaireGame
             Assert.AreSame(topCard, mTable.WastePile.ReadCard(1));
         }
 
-        private Deck Get3CardsDeck (out Card topCard)
+        private Pile Get3CardsDeck (out Card topCard)
         {
-            var deck = new Deck();
+            var deck = new Pile();
             deck.Stack(new Card(eCardValue.Ace, eCardColor.Clubs, eCardSide.Back));
             deck.Stack(new Card(eCardValue.Two, eCardColor.Clubs, eCardSide.Back));
             topCard = new Card(eCardValue.Three, eCardColor.Clubs, eCardSide.Back);
@@ -71,9 +71,9 @@ namespace TestsSolitaireGame
         [Test]
         public void TestDrawLastCard()
         {
-            var oneCardDeckBackFace = new Deck();
+            var oneCardDeckBackFace = new Pile();
             oneCardDeckBackFace.Stack(new Card(eCardValue.Ace, eCardColor.Clubs, eCardSide.Back));
-            var twoCardsDeckFrontface = new Deck();
+            var twoCardsDeckFrontface = new Pile();
             twoCardsDeckFrontface.Stack(new Card(eCardValue.Two, eCardColor.Clubs, eCardSide.Front));
             twoCardsDeckFrontface.Stack(new Card(eCardValue.Three, eCardColor.Clubs, eCardSide.Front));
 
